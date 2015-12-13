@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Weather Map</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+</head>
+<body>
+<h3>Current weather</h3>
+<br>
+<input type="text" id="city" placeholder="Insert City">
+<button onclick="get_forecast()">Submit</button>
+<script>
+    function get_forecast() {
+        var city = $('#city').val();
+            $.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&APPID=456f924d284faa50064c0420bf2e2843",
+                    function (data) {
+                        var weather_forecast = data.weather[0].description;
+                        $('#forecast').html(weather_forecast);
+});}
+    </script>
+<br>
+<span style="font-size: large; font-weight: bold" id="forecast"></span>
+</body>
+</html>
