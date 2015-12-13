@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+    <style>
+        table {
+            text-align: center;
+            border: solid black 3px;
+        }
+        tfoot {
+            display: table-header-group;
+        }
+    </style>
+
+</head>
+<body>
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>Eesnimi</th>
+        <th>Perekonnanimi</th>
+        <th>Vanus</th>
+        <th>Elukoht</th>
+        <th>Rahvus</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Eesnimi</th>
+        <th>Perekonnanimi</th>
+        <th>Vanus</th>
+        <th>Elukoht</th>
+        <th>Rahvus</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr>
+        <td>Jaan</td>
+        <td>Jaanson</td>
+        <td>26</td>
+        <td>Elva</td>
+        <td>Ugrimugri</td>
+    </tr>
+    <tr>
+        <td>Walter</td>
+        <td>Vihm</td>
+        <td>85</td>
+        <td>Tartu</td>
+        <td>Eestlane</td>
+    </tr>
+    <tr>
+        <td>Artur</td>
+        <td>Awesome</td>
+        <td>35</td>
+        <td>Njuujork</td>
+        <td>Amerikaano</td>
+    </tr>
+    <tr>
+        <td>Juha</td>
+        <td>Pekka</td>
+        <td>40</td>
+        <td>Tampere</td>
+        <td>Suomeksi</td>
+    </tr>
+    <tr>
+        <td>Ilja</td>
+        <td>Muromets</td>
+        <td>100</td>
+        <td>Novgorod</td>
+        <td>Vene</td>
+    </tr>
+    </tbody>
+    </table>
+<br>
+<script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#example tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Otsi '+title+'" />' );
+        } );
+
+        // DataTable
+        var table = $('#example').DataTable();
+
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                            .search( this.value )
+                            .draw();
+                }
+            } );
+        } );
+    } );
+</script>
+</body>
+</html>
